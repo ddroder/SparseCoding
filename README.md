@@ -3,6 +3,14 @@
 * Added tensorboard to visualize each stage (original, encoding, inference/reconstruction)
 
 
+# To view the tensorboard:
+* pull the repo
+* open terminal window
+* change directory to SparseCoding
+* run: pip3 install tensorboard
+* run: tensorboard --logdir runs/Feb16_13-11-06_danielsCoolProgramming/
+
+
 # UPDATE 9 Sept 2020:
 I tried pulling and running this to find it's incompatible with the latest pytorch, and with Windows. I will be updating it over the next week-- it won't run right now.
 -Ben
