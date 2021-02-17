@@ -1,4 +1,4 @@
-#UPDATE 16 Feb 2021:
+# UPDATE 16 Feb 2021:
 Pulled the code down and added a Decoder and ability to save both the sparse encoding dictionary, and the decoder model.
 
 
