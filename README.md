@@ -3,7 +3,7 @@
 * Added tensorboard to visualize each stage (original, encoding, inference/reconstruction)
 
 
-# To view the tensorboard:
+## To view the tensorboard:
 * pull the repo
 * open terminal window
 * change directory to SparseCoding
