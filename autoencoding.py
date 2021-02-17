@@ -19,17 +19,16 @@ import matplotlib.pyplot as plt
 import torchvision.transforms as transforms
 from torch.utils.tensorboard import SummaryWriter
 
-#TODO: add method for training and parameter for saving
-#TODO: add tensorboard to see models.
-
 
 class AE(nn.Module):
+    #this class will create an autoencoding object
+    #the objective is to simply create the autoencoder object
+    #and then pass in training data to train the model
+    #to very simply create the autoencoder
     def __init__(self, **kwargs):
         super().__init__()
         model_dir="/nvme_ssd/bensCode/SparseCoding/models/model3.pt"
         self.encoder=nn.Sequential(torch.load(model_dir)
-        # nn.Linear(in_features=1024,out_features=800),
-        # nn.Linear(in_features=800,out_features=144)
         )
         self.encoder.eval()
         self.encoder2=nn.Sequential(
@@ -47,6 +46,11 @@ class AE(nn.Module):
             nn.Sigmoid()
         )
     def trainAE(self,epochs,train_data,save=False,decoderName=1,writeTb=True):
+        """
+        this is a method that will train the autoencoder.
+        After this runs, it will update the constructed AE (auto encoder)
+        to be a trained model.
+        """
         for epoch in range(epochs):
             loss = 0
             for batch_features, _ in train_data:
@@ -74,15 +78,26 @@ class AE(nn.Module):
         if save:
             self.saveModel(modelName=decoderName)
     def forward(self, features):
+        """
+        this method is the logic for the forward prop. of the model.
+        """
         x=self.encoder(features)
         x=self.encoder2(x)
         x=self.decoder(x)
         return x
     def getEncoderImage(self,x):
+        """
+        this method will pass an image through the encoder
+        and returns that image. This is mostly just for
+        adding the image to the tensorboard display.
+        """
         encoded_image=self.encoder(x)
         encoded_image=self.encoder2(encoded_image)
         return encoded_image
     def saveModel(self,modelName=1):
+        """
+        this method will contain the code for saving the decoder model
+        """
         model_dir="/nvme_ssd/bensCode/SparseCoding/models/Decoder_1.pt"
         torch.save(self.decoder,model_dir)
         print(f"model saved to {model_dir}")

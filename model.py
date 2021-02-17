@@ -1,3 +1,6 @@
+#this is a testing file to test
+#if the encoder works
+#it also generates images of the encoding.
 import torch
 from torchsummary import summary
 import os
