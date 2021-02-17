@@ -1,5 +1,6 @@
 # UPDATE 16 Feb 2021:
-Pulled the code down and added a Decoder and ability to save both the sparse encoding dictionary, and the decoder model.
+* Pulled the code down and added a Decoder and ability to save both the sparse encoding dictionary, and the decoder model,
+* Added tensorboard to visualize each stage (original, encoding, inference/reconstruction)
 
 
 # UPDATE 9 Sept 2020:
