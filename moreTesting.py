@@ -22,9 +22,9 @@ import torchvision
 from keras.datasets import mnist
 from loadImDat import scaleTo01
 import matplotlib.pyplot as plt
-
+from testLoadData import loadData
 all_files=glob.glob("/nvme_ssd/mriData/singlecoil_train/*.h5")
-hf=h5py.File("/nvme_ssd/mriData/singlecoil_train/file1002569.h5")
+hf=h5py.File("/nvme_ssd/mriData/singlecoil_train/file1002569.h5","r")
 print('Keys:', list(hf.keys()))
 print('Attrs:', dict(hf.attrs))
 volume_kspace = hf['kspace'][()]
@@ -42,14 +42,27 @@ def get_tensor_complex_image(filepath):
     slice_kspace2 = T.to_tensor(slice_kspace)      # Convert from numpy array to pytorch tensor
     slice_image = T.ifft2(slice_kspace2)           # Apply Inverse Fourier Transform to get the complex image
     slice_image_abs = T.complex_abs(slice_image)   # Compute absolute value to get a real image
-    resize1=resize(slice_image_abs,(500,500),anti_aliasing=True)
-    return resize1
+    # resize1=resize(slice_image_abs,(500,500),anti_aliasing=True)
+    slice_image_abs=slice_image_abs.numpy()
+    return slice_image_abs
 
 tensorfied_images=[]
 for image in all_files:
     c=get_tensor_complex_image(image)
     tensorfied_images.append(c)
-
-print(len(tensorfied_images))
-print(tensorfied_images[0])
+thing=loadData(tensorfied_images,32,10)
+train_data=[]
+for batch_idx, (true_sigs) in enumerate(thing):
+    train_data.append(true_sigs)
+im_test=train_data[9][0]
+print(im_test)
+print(type(im_test))
+print(im_test.shape)
+im_test=im_test.numpy()
+im_test2=im_test.reshape(32,32)
+plt.imshow(im_test)
+plt.show()
+# print(thing)
+# print(len(tensorfied_images))
+# print(tensorfied_images[0])
 
