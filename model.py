@@ -24,7 +24,6 @@ model_dir="/nvme_ssd/bensCode/SparseCoding/models/model3.pt"
 net=torch.load(model_dir)
 net.eval()
 print(net)
-(train_X, train_y), (test_X, test_y) = mnist.load_data()
 
 trainload,testload=loadData("mnist",32,10)
 train_data=[]
