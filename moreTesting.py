@@ -42,15 +42,15 @@ def get_tensor_complex_image(filepath):
     slice_kspace2 = T.to_tensor(slice_kspace)      # Convert from numpy array to pytorch tensor
     slice_image = T.ifft2(slice_kspace2)           # Apply Inverse Fourier Transform to get the complex image
     slice_image_abs = T.complex_abs(slice_image)   # Compute absolute value to get a real image
-    # resize1=resize(slice_image_abs,(500,500),anti_aliasing=True)
-    slice_image_abs=slice_image_abs.numpy()
-    return slice_image_abs
+    resize1=resize(slice_image_abs,(500,500),anti_aliasing=True)
+    # slice_image_abs=slice_image_abs.numpy()
+    return resize1
 
 tensorfied_images=[]
 for image in all_files:
     c=get_tensor_complex_image(image)
     tensorfied_images.append(c)
-thing=loadData(tensorfied_images,32,10)
+thing=loadData(tensorfied_images,500,10)
 train_data=[]
 for batch_idx, (true_sigs) in enumerate(thing):
     train_data.append(true_sigs)
@@ -59,8 +59,8 @@ print(im_test)
 print(type(im_test))
 print(im_test.shape)
 im_test=im_test.numpy()
-im_test2=im_test.reshape(32,32)
-plt.imshow(im_test2)
+im_test2=im_test.reshape(500,500)
+plt.imshow(im_test2,cmap='grey')
 plt.show()
 # print(thing)
 # print(len(tensorfied_images))

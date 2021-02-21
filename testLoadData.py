@@ -127,7 +127,7 @@ def loadData(arrayData, patchSize, batchSize):
 
 ##################################################################
     # Normalize,separate into patches
-    m    = 32
+    m    = 500
     # nppi = math.floor(m/patchSize)**2
     # bsz  = fixBsz(batchSize,nppi )
     transform = transforms.Compose([
